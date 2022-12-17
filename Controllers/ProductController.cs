@@ -52,25 +52,36 @@ public class ProductController : ControllerBase
         return Ok(product);
     }
 
+    // IActionResult ใช้กรณีไม่มี return ค่ากลับ
+    [HttpPut("{id}")]
+    public ActionResult updateProductById(int id, [FromBody] Product product)
+    {
+        if (id != product.id)
+        {
+            return BadRequest();
+        }
+
+        if (id != 1111)
+        {
+            return NotFound();
+        }
+
+        return Ok(product);
+    }
+
+    [HttpDelete]
+    public ActionResult DeleteById(int id)
+    {
+        if (id != 1111) {
+            return NotFound();
+        }
+        return NoContent();
+    }
+
     public class Product
     {
         public int id { get; set; }
         public string name { get; set; }
         public int price { get; set; }
-    }
-
-    // IActionResult ใช้กรณีไม่มี return ค่ากลับ
-    [HttpPut("{id}")]
-    public ActionResult updateProductById(int id, [FromBody] Product product)
-    {
-        if (id != product.id) {
-            return BadRequest();
-        } 
-
-        if (id != 1111) {
-            return NotFound();
-        }
-
-        return Ok(product);
     }
 }
